@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.VideoInfoMapper">
+    
+    <resultMap type="VideoInfo" id="VideoInfoResult">
+        <result property="videoId"    column="video_id"    />
+        <result property="libraryId"    column="library_id"    />
+        <result property="fileName"    column="file_name"    />
+        <result property="filePath"    column="file_path"    />
+        <result property="thumbnailPath"    column="thumbnail_path"    />
+        <result property="fileHash"    column="file_hash"    />
+        <result property="duration"    column="duration"    />
+        <result property="resolution"    column="resolution"    />
+        <result property="fileSize"    column="file_size"    />
+        <result property="formatName"    column="format_name"    />
+        <result property="status"    column="status"    />
+        <result property="remark"    column="remark"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectVideoInfoVo">
+        select video_id, library_id, file_name, file_path, thumbnail_path, file_hash, duration, resolution, file_size, format_name, status, remark, create_by, create_time, update_by, update_time from video_info
+    </sql>
+
+    <select id="selectVideoInfoList" parameterType="VideoInfo" resultMap="VideoInfoResult">
+        <include refid="selectVideoInfoVo"/>
+        <where>  
+            <if test="libraryId != null "> and library_id = #{libraryId}</if>
+            <if test="fileName != null  and fileName != ''"> and file_name like concat('%', #{fileName}, '%')</if>
+            <if test="filePath != null  and filePath != ''"> and file_path = #{filePath}</if>
+            <if test="thumbnailPath != null  and thumbnailPath != ''"> and thumbnail_path = #{thumbnailPath}</if>
+            <if test="fileHash != null  and fileHash != ''"> and file_hash = #{fileHash}</if>
+            <if test="duration != null "> and duration = #{duration}</if>
+            <if test="resolution != null  and resolution != ''"> and resolution = #{resolution}</if>
+            <if test="fileSize != null "> and file_size = #{fileSize}</if>
+            <if test="formatName != null  and formatName != ''"> and format_name like concat('%', #{formatName}, '%')</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+        </where>
+    </select>
+    
+    <select id="selectVideoInfoByVideoId" parameterType="Long" resultMap="VideoInfoResult">
+        <include refid="selectVideoInfoVo"/>
+        where video_id = #{videoId}
+    </select>
+
+    <insert id="insertVideoInfo" parameterType="VideoInfo" useGeneratedKeys="true" keyProperty="videoId">
+        insert into video_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="libraryId != null">library_id,</if>
+            <if test="fileName != null and fileName != ''">file_name,</if>
+            <if test="filePath != null and filePath != ''">file_path,</if>
+            <if test="thumbnailPath != null">thumbnail_path,</if>
+            <if test="fileHash != null">file_hash,</if>
+            <if test="duration != null">duration,</if>
+            <if test="resolution != null">resolution,</if>
+            <if test="fileSize != null">file_size,</if>
+            <if test="formatName != null">format_name,</if>
+            <if test="status != null">status,</if>
+            <if test="remark != null">remark,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="libraryId != null">#{libraryId},</if>
+            <if test="fileName != null and fileName != ''">#{fileName},</if>
+            <if test="filePath != null and filePath != ''">#{filePath},</if>
+            <if test="thumbnailPath != null">#{thumbnailPath},</if>
+            <if test="fileHash != null">#{fileHash},</if>
+            <if test="duration != null">#{duration},</if>
+            <if test="resolution != null">#{resolution},</if>
+            <if test="fileSize != null">#{fileSize},</if>
+            <if test="formatName != null">#{formatName},</if>
+            <if test="status != null">#{status},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateVideoInfo" parameterType="VideoInfo">
+        update video_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="libraryId != null">library_id = #{libraryId},</if>
+            <if test="fileName != null and fileName != ''">file_name = #{fileName},</if>
+            <if test="filePath != null and filePath != ''">file_path = #{filePath},</if>
+            <if test="thumbnailPath != null">thumbnail_path = #{thumbnailPath},</if>
+            <if test="fileHash != null">file_hash = #{fileHash},</if>
+            <if test="duration != null">duration = #{duration},</if>
+            <if test="resolution != null">resolution = #{resolution},</if>
+            <if test="fileSize != null">file_size = #{fileSize},</if>
+            <if test="formatName != null">format_name = #{formatName},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where video_id = #{videoId}
+    </update>
+
+    <delete id="deleteVideoInfoByVideoId" parameterType="Long">
+        delete from video_info where video_id = #{videoId}
+    </delete>
+
+    <delete id="deleteVideoInfoByVideoIds" parameterType="String">
+        delete from video_info where video_id in 
+        <foreach item="videoId" collection="array" open="(" separator="," close=")">
+            #{videoId}
+        </foreach>
+    </delete>
+</mapper>

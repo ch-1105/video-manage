@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.VideoTagRelationMapper">
+    
+    <resultMap type="VideoTagRelation" id="VideoTagRelationResult">
+        <result property="videoId"    column="video_id"    />
+        <result property="tagId"    column="tag_id"    />
+    </resultMap>
+
+    <sql id="selectVideoTagRelationVo">
+        select video_id, tag_id from video_tag_relation
+    </sql>
+
+    <select id="selectVideoTagRelationList" parameterType="VideoTagRelation" resultMap="VideoTagRelationResult">
+        <include refid="selectVideoTagRelationVo"/>
+        <where>  
+        </where>
+    </select>
+    
+    <select id="selectVideoTagRelationByVideoId" parameterType="Long" resultMap="VideoTagRelationResult">
+        <include refid="selectVideoTagRelationVo"/>
+        where video_id = #{videoId}
+    </select>
+
+    <insert id="insertVideoTagRelation" parameterType="VideoTagRelation">
+        insert into video_tag_relation
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="videoId != null">video_id,</if>
+            <if test="tagId != null">tag_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="videoId != null">#{videoId},</if>
+            <if test="tagId != null">#{tagId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateVideoTagRelation" parameterType="VideoTagRelation">
+        update video_tag_relation
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="tagId != null">tag_id = #{tagId},</if>
+        </trim>
+        where video_id = #{videoId}
+    </update>
+
+    <delete id="deleteVideoTagRelationByVideoId" parameterType="Long">
+        delete from video_tag_relation where video_id = #{videoId}
+    </delete>
+
+    <delete id="deleteVideoTagRelationByVideoIds" parameterType="String">
+        delete from video_tag_relation where video_id in 
+        <foreach item="videoId" collection="array" open="(" separator="," close=")">
+            #{videoId}
+        </foreach>
+    </delete>
+</mapper>

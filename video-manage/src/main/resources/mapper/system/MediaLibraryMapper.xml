@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.MediaLibraryMapper">
+    
+    <resultMap type="MediaLibrary" id="MediaLibraryResult">
+        <result property="libraryId"    column="library_id"    />
+        <result property="libraryName"    column="library_name"    />
+        <result property="libraryPath"    column="library_path"    />
+        <result property="remark"    column="remark"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectMediaLibraryVo">
+        select library_id, library_name, library_path, remark, create_by, create_time, update_by, update_time from media_library
+    </sql>
+
+    <select id="selectMediaLibraryList" parameterType="MediaLibrary" resultMap="MediaLibraryResult">
+        <include refid="selectMediaLibraryVo"/>
+        <where>  
+            <if test="libraryName != null  and libraryName != ''"> and library_name like concat('%', #{libraryName}, '%')</if>
+            <if test="libraryPath != null  and libraryPath != ''"> and library_path = #{libraryPath}</if>
+        </where>
+    </select>
+    
+    <select id="selectMediaLibraryByLibraryId" parameterType="Long" resultMap="MediaLibraryResult">
+        <include refid="selectMediaLibraryVo"/>
+        where library_id = #{libraryId}
+    </select>
+
+    <insert id="insertMediaLibrary" parameterType="MediaLibrary" useGeneratedKeys="true" keyProperty="libraryId">
+        insert into media_library
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="libraryName != null and libraryName != ''">library_name,</if>
+            <if test="libraryPath != null and libraryPath != ''">library_path,</if>
+            <if test="remark != null">remark,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="libraryName != null and libraryName != ''">#{libraryName},</if>
+            <if test="libraryPath != null and libraryPath != ''">#{libraryPath},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateMediaLibrary" parameterType="MediaLibrary">
+        update media_library
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="libraryName != null and libraryName != ''">library_name = #{libraryName},</if>
+            <if test="libraryPath != null and libraryPath != ''">library_path = #{libraryPath},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where library_id = #{libraryId}
+    </update>
+
+    <delete id="deleteMediaLibraryByLibraryId" parameterType="Long">
+        delete from media_library where library_id = #{libraryId}
+    </delete>
+
+    <delete id="deleteMediaLibraryByLibraryIds" parameterType="String">
+        delete from media_library where library_id in 
+        <foreach item="libraryId" collection="array" open="(" separator="," close=")">
+            #{libraryId}
+        </foreach>
+    </delete>
+</mapper>
