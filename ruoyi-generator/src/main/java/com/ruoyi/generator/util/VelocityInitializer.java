@@ -21,6 +21,8 @@ public class VelocityInitializer
         {
             // 加载classpath目录下的vm文件
             p.setProperty("resource.loader.file.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
+            // 定义模板加载路径，优先加载自定义模板
+            p.setProperty("resource.loader.path", "vm/java_plus,vm/vue_plus,vm/js_plus,vm");
             // 定义字符集
             p.setProperty(Velocity.INPUT_ENCODING, Constants.UTF8);
             // 初始化Velocity引擎，指定配置Properties

@@ -1,0 +1,36 @@
+import request from '@/utils/request'
+
+// 保存${functionName}
+export function save${ClassName}(data) {
+  return request({
+    url: '/${moduleName}/admin/${businessName}/save',
+    method: 'post',
+    data: data
+  })
+}
+
+// 查询${functionName}列表
+export function queryList${ClassName}(query) {
+  return request({
+    url: '/${moduleName}/admin/${businessName}/query-list',
+    method: 'get',
+    params: query
+  })
+}
+
+// 删除${functionName}
+export function delete${ClassName}(id) {
+  return request({
+    url: '/${moduleName}/admin/${businessName}/delete/' + id,
+    method: 'delete'
+  })
+}
+
+// 批量删除${functionName}
+export function batchDelete${ClassName}(ids) {
+  return request({
+    url: '/${moduleName}/admin/${businessName}/batchDelete',
+    method: 'delete',
+    data: ids
+  })
+}

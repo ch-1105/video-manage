@@ -135,26 +135,29 @@ public class VelocityUtils
             useWebType = "vm/vue/v3";
         }
         List<String> templates = new ArrayList<String>();
-        templates.add("vm/java/domain.java.vm");
-        templates.add("vm/java/mapper.java.vm");
-        templates.add("vm/java/service.java.vm");
-        templates.add("vm/java/serviceImpl.java.vm");
-        templates.add("vm/java/controller.java.vm");
+        templates.add("vm/java_plus/domain.java.vm");
+        templates.add("vm/java_plus/mapper.java.vm");
+        templates.add("vm/java_plus/service.java.vm");
+        templates.add("vm/java_plus/serviceImpl.java.vm");
+        templates.add("vm/java_plus/controller.java.vm");
+        templates.add("vm/java_plus/queryRequest.java.vm");
+        templates.add("vm/java_plus/queryResponse.java.vm");
+        templates.add("vm/java_plus/saveRequest.java.vm");
         templates.add("vm/xml/mapper.xml.vm");
         templates.add("vm/sql/sql.vm");
-        templates.add("vm/js/api.js.vm");
+        templates.add("vm/js_plus/api.js.vm");
         if (GenConstants.TPL_CRUD.equals(tplCategory))
         {
-            templates.add(useWebType + "/index.vue.vm");
+            templates.add("vm/vue_plus/index.vue.vm");
         }
         else if (GenConstants.TPL_TREE.equals(tplCategory))
         {
-            templates.add(useWebType + "/index-tree.vue.vm");
+            templates.add("vm/vue_plus/index.vue.vm"); // Assuming index.vue.vm can handle tree structure or a specific tree template will be added to vue_plus
         }
         else if (GenConstants.TPL_SUB.equals(tplCategory))
         {
-            templates.add(useWebType + "/index.vue.vm");
-            templates.add("vm/java/sub-domain.java.vm");
+            templates.add("vm/vue_plus/index.vue.vm");
+            templates.add("vm/java_plus/sub-domain.java.vm");
         }
         return templates;
     }
@@ -182,6 +185,18 @@ public class VelocityUtils
         if (template.contains("domain.java.vm"))
         {
             fileName = StringUtils.format("{}/domain/{}.java", javaPath, className);
+        }
+        if (template.contains("queryRequest.java.vm"))
+        {
+            fileName = StringUtils.format("{}/request/{}QueryRequest.java", javaPath, className);
+        }
+        if (template.contains("saveRequest.java.vm"))
+        {
+            fileName = StringUtils.format("{}/request/{}SaveRequest.java", javaPath, className);
+        }
+        if (template.contains("queryResponse.java.vm"))
+        {
+            fileName = StringUtils.format("{}/response/{}QueryResponse.java", javaPath, className);
         }
         if (template.contains("sub-domain.java.vm") && StringUtils.equals(GenConstants.TPL_SUB, genTable.getTplCategory()))
         {

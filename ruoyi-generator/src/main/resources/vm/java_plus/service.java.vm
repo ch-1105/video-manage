@@ -1,0 +1,39 @@
+package ${packageName}.service;
+
+import ${packageName}.domain.${ClassName};
+import ${packageName}.domain.dto.${ClassName}SaveRequest;
+import ${packageName}.domain.dto.${ClassName}QueryRequest;
+import ${packageName}.domain.vo.${ClassName}QueryResponse;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.ruoyi.common.core.page.PageResponse;
+
+/**
+ * ${functionName}Service接口
+ * 
+ * @author ${author}
+ * @date ${datetime}
+ */
+public interface I${ClassName}Service extends IService<${ClassName}>
+{
+    /**
+     * 保存${functionName}
+     * 
+     * @param request ${functionName}保存请求
+     */
+    void save(${ClassName}SaveRequest request);
+
+    /**
+     * 查询${functionName}列表
+     * 
+     * @param request ${functionName}查询请求
+     * @return ${functionName}集合
+     */
+    PageResponse<${ClassName}QueryResponse> queryList(${ClassName}QueryRequest request);
+
+    /**
+     * 删除${functionName}
+     * 
+     * @param ${pkColumn.javaField} ${functionName}主键
+     */
+    void delete(Long ${pkColumn.javaField});
+}

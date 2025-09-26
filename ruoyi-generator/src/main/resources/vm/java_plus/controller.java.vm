@@ -1,0 +1,51 @@
+package ${packageName}.controller;
+
+import java.util.List;
+import jakarta.annotation.Resource;
+import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.*;
+import com.ruoyi.common.core.domain.Result;
+import com.ruoyi.common.core.page.PageResponse;
+
+import ${packageName}.domain.dto.${ClassName}SaveRequest;
+import ${packageName}.domain.dto.${ClassName}QueryRequest;
+import ${packageName}.domain.vo.${ClassName}QueryResponse;
+import ${packageName}.service.I${ClassName}Service;
+
+/**
+ * ${functionName}Controller
+ * 
+ * @author ${author}
+ * @date ${datetime}
+ */
+@RestController
+@RequestMapping("/admin/${businessName}")
+public class ${ClassName}Controller {
+
+    @Resource
+    private I${ClassName}Service ${className}Service;
+
+    @PostMapping("/save")
+    public Result<Object> save(@Valid @RequestBody ${ClassName}SaveRequest request) {
+        ${className}Service.save(request);
+        return Result.success();
+    }
+
+    @GetMapping("/query-list")
+    public Result<PageResponse<${ClassName}QueryResponse>> queryList(@Valid ${ClassName}QueryRequest request) {
+        PageResponse<${ClassName}QueryResponse> list = ${className}Service.queryList(request);
+        return Result.success(list);
+    }
+
+    @DeleteMapping("/delete/{${pkColumn.javaField}}")
+    public Result<Object> delete(@PathVariable Long ${pkColumn.javaField}) {
+        ${className}Service.delete(${pkColumn.javaField});
+        return Result.success();
+    }
+
+    @DeleteMapping("/batchDelete")
+    public Result<Object> batchDelete(@RequestBody List<Long> ${pkColumn.javaField}s) {
+        ${className}Service.removeByIds(${pkColumn.javaField}s);
+        return Result.success();
+    }
+}

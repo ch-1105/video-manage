@@ -180,7 +180,7 @@ public class GenTable extends BaseEntity
 
     public String getPackageName()
     {
-        return packageName;
+        return "generate";
     }
 
     public void setPackageName(String packageName)

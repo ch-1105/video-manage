@@ -1,0 +1,76 @@
+package ${packageName}.service.impl;
+
+import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.date.DateTime;
+import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.ObjectUtil;
+import com.ruoyi.common.core.page.PageResponse;
+
+import ${packageName}.mapper.${ClassName}Mapper;
+import ${packageName}.domain.${ClassName};
+import ${packageName}.domain.dto.${ClassName}SaveRequest;
+import ${packageName}.domain.dto.${ClassName}QueryRequest;
+import ${packageName}.domain.vo.${ClassName}QueryResponse;
+import ${packageName}.service.I${ClassName}Service;
+
+/**
+ * ${functionName}Service业务层处理
+ * 
+ * @author ${author}
+ * @date ${datetime}
+ */
+@Service
+public class ${ClassName}ServiceImpl extends ServiceImpl<${ClassName}Mapper, ${ClassName}> implements I${ClassName}Service 
+{
+    private static final Logger log = LoggerFactory.getLogger(${ClassName}Service.class);
+
+    @Override
+    public void save(${ClassName}SaveRequest request) {
+        DateTime now = DateTime.now();
+        ${ClassName} ${className} = BeanUtil.copyProperties(request, ${ClassName}.class);
+        if (ObjectUtil.isNull(${className}.get${pkColumn.capJavaField}())) {
+            ${className}.set${pkColumn.capJavaField}(IdUtil.getSnowflakeNextId());
+            ${className}.setCreateTime(now);
+            ${className}.setUpdateTime(now);
+            baseMapper.insert(${className});
+        } else {
+            ${className}.setUpdateTime(now);
+            baseMapper.updateById(${className});
+        }
+    }
+
+    @Override
+    public PageResponse<${ClassName}QueryResponse> queryList(${ClassName}QueryRequest request) {
+        QueryWrapper<${ClassName}> ${className}Wrapper = new QueryWrapper<>();
+        ${className}Wrapper.orderByDesc("${pkColumn.columnName}");
+
+        log.info("查询页码：{}", request.getPageNum());
+        log.info("每页条数：{}", request.getPageSize());
+        PageHelper.startPage(request.getPageNum(), request.getPageSize());
+        List<${ClassName}> ${className}List = baseMapper.selectList(${className}Wrapper);
+
+        PageInfo<${ClassName}> pageInfo = new PageInfo<>(${className}List);
+        log.info("总行数：{}", pageInfo.getTotal());
+        log.info("总页数：{}", pageInfo.getPages());
+
+        List<${ClassName}QueryResponse> list = BeanUtil.copyToList(${className}List, ${ClassName}QueryResponse.class);
+
+        PageResponse<${ClassName}QueryResponse> pageResponse = new PageResponse<>();
+        pageResponse.setTotal(pageInfo.getTotal());
+        pageResponse.setList(list);
+        return pageResponse;
+    }
+
+    @Override
+    public void delete(Long ${pkColumn.javaField}) {
+        baseMapper.deleteById(${pkColumn.javaField});
+    }
+}

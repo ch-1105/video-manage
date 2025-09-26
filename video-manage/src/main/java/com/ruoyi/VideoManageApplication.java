@@ -11,7 +11,7 @@ import org.springframework.context.annotation.ComponentScan;
  * 
  * @author ruoyi
  */
-@MapperScan(basePackages = {"com.ruoyi.system.mapper"})
+//@MapperScan(basePackages = {"com.ruoyi.system.mapper"})
 @SpringBootApplication(exclude = { DataSourceAutoConfiguration.class })
 public class VideoManageApplication
 {
