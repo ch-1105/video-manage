@@ -156,16 +156,25 @@ public class GenUtils
     }
 
     /**
-     * 获取业务名
+     * 获取业务名 0926修改，避免表名后缀冲突
      * 
      * @param tableName 表名
      * @return 业务名
      */
     public static String getBusinessName(String tableName)
     {
-        int lastIndex = tableName.lastIndexOf("_");
-        int nameLength = tableName.length();
-        return StringUtils.substring(tableName, lastIndex + 1, nameLength);
+        // 按需调整业务名称提取逻辑
+        String[] parts = tableName.split("_");
+        if (parts.length > 1) {
+            // 可以根据需要选择合适的部分组合
+            return parts[parts.length - 2] + "_" + parts[parts.length - 1];
+        } else {
+            return parts[parts.length - 1];
+        }
+    }
+
+    public static void main(String[] args) {
+        System.out.println(getBusinessName("media_library"));
     }
 
     /**

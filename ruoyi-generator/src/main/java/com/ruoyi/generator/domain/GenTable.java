@@ -1,6 +1,9 @@
 package com.ruoyi.generator.domain;
 
 import java.util.List;
+
+import com.ruoyi.generator.config.GenConfig;
+import com.ruoyi.generator.util.GenUtils;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import org.apache.commons.lang3.ArrayUtils;
@@ -180,7 +183,7 @@ public class GenTable extends BaseEntity
 
     public String getPackageName()
     {
-        return "generate";
+        return packageName;
     }
 
     public void setPackageName(String packageName)

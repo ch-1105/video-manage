@@ -178,8 +178,7 @@ public class VelocityUtils
         // 业务名称
         String businessName = genTable.getBusinessName();
 
-        String javaPath = PROJECT_PATH + "/" + StringUtils.replace(packageName, ".", "/");
-        String mybatisPath = MYBATIS_PATH + "/" + moduleName;
+        String javaPath = PROJECT_PATH + "/" + StringUtils.replace(packageName, ".", "/");;
         String vuePath = "vue";
 
         if (template.contains("domain.java.vm"))
@@ -188,15 +187,15 @@ public class VelocityUtils
         }
         if (template.contains("queryRequest.java.vm"))
         {
-            fileName = StringUtils.format("{}/request/{}QueryRequest.java", javaPath, className);
+            fileName = StringUtils.format("{}/domain/dto/{}QueryRequest.java", javaPath, className);
         }
         if (template.contains("saveRequest.java.vm"))
         {
-            fileName = StringUtils.format("{}/request/{}SaveRequest.java", javaPath, className);
+            fileName = StringUtils.format("{}/domain/dto/{}SaveRequest.java", javaPath, className);
         }
         if (template.contains("queryResponse.java.vm"))
         {
-            fileName = StringUtils.format("{}/response/{}QueryResponse.java", javaPath, className);
+            fileName = StringUtils.format("{}/domain/vo/{}QueryResponse.java", javaPath, className);
         }
         if (template.contains("sub-domain.java.vm") && StringUtils.equals(GenConstants.TPL_SUB, genTable.getTplCategory()))
         {
@@ -208,7 +207,7 @@ public class VelocityUtils
         }
         else if (template.contains("service.java.vm"))
         {
-            fileName = StringUtils.format("{}/service/I{}Service.java", javaPath, className);
+            fileName = StringUtils.format("{}/service/{}Service.java", javaPath, className);
         }
         else if (template.contains("serviceImpl.java.vm"))
         {
@@ -220,7 +219,7 @@ public class VelocityUtils
         }
         else if (template.contains("mapper.xml.vm"))
         {
-            fileName = StringUtils.format("{}/{}Mapper.xml", mybatisPath, className);
+            fileName = StringUtils.format("{}/{}Mapper.xml", MYBATIS_PATH, className);
         }
         else if (template.contains("sql.vm"))
         {
@@ -228,15 +227,15 @@ public class VelocityUtils
         }
         else if (template.contains("api.js.vm"))
         {
-            fileName = StringUtils.format("{}/api/{}/{}.js", vuePath, moduleName, businessName);
+            fileName = StringUtils.format("{}/api/{}.js", vuePath, businessName);
         }
         else if (template.contains("index.vue.vm"))
         {
-            fileName = StringUtils.format("{}/views/{}/{}/index.vue", vuePath, moduleName, businessName);
+            fileName = StringUtils.format("{}/views/{}/index.vue", vuePath, businessName);
         }
         else if (template.contains("index-tree.vue.vm"))
         {
-            fileName = StringUtils.format("{}/views/{}/{}/index.vue", vuePath, moduleName, businessName);
+            fileName = StringUtils.format("{}/views/{}/index.vue", vuePath, businessName);
         }
         return fileName;
     }

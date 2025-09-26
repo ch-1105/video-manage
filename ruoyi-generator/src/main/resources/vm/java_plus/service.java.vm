@@ -13,7 +13,7 @@ import com.ruoyi.common.core.page.PageResponse;
  * @author ${author}
  * @date ${datetime}
  */
-public interface I${ClassName}Service extends IService<${ClassName}>
+public interface ${ClassName}Service extends IService<${ClassName}>
 {
     /**
      * 保存${functionName}

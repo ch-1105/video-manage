@@ -10,7 +10,7 @@ import com.ruoyi.common.core.page.PageResponse;
 import ${packageName}.domain.dto.${ClassName}SaveRequest;
 import ${packageName}.domain.dto.${ClassName}QueryRequest;
 import ${packageName}.domain.vo.${ClassName}QueryResponse;
-import ${packageName}.service.I${ClassName}Service;
+import ${packageName}.service.${ClassName}Service;
 
 /**
  * ${functionName}Controller
@@ -23,7 +23,7 @@ import ${packageName}.service.I${ClassName}Service;
 public class ${ClassName}Controller {
 
     @Resource
-    private I${ClassName}Service ${className}Service;
+    private ${ClassName}Service ${className}Service;
 
     @PostMapping("/save")
     public Result<Object> save(@Valid @RequestBody ${ClassName}SaveRequest request) {
